@@ -2,9 +2,11 @@
 # Using RStudio on the Server 
 # Source: https://docs.computecanada.ca/wiki/Jupyter/fr 
 ########################################################################
+USERNAME=MYUSERNAME
+RESEARCHACCONT="def-barrett"
 
 # Go on the server and connect to it: 
-ssh beluga.computecanada.ca -l USERNAME
+ssh beluga.computecanada.ca -l $USERNAME
 
 # Load the Python module
 module load python/3.6
@@ -42,7 +44,7 @@ source $HOME/jupyter_py3/bin/activate
 module load nixpkgs/16.09  gcc/7.3.0 rstudio-server
 
 # Starting Jupyter Notebook
-salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-barrett srun $VIRTUAL_ENV/bin/notebook.sh
+salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=$RESEARCHACCONT srun $VIRTUAL_ENV/bin/notebook.sh
 # There will be a link. Copy that. 
 
 
@@ -51,7 +53,7 @@ salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=d
 ########################################################################
 # Make sure sshuttle is installed:
 brew install sshuttle
-sshuttle --dns -Nr mobze@beluga.computecanada.ca
+sshuttle --dns -Nr $USERNAME@beluga.computecanada.ca
 
 # GO on a browser and paste the link that was copied into it. 
 # Go to new, and then "RStudio Session"
@@ -63,9 +65,11 @@ deactivate
 
 ########################################################################
 # To reload a notebook, do this: 
+USERNAME=MYUSERNAME
+RESEARCHACCONT="def-barrett"
 source $HOME/jupyter_py3/bin/activate
-salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-barrett srun $VIRTUAL_ENV/bin/notebook.sh
+salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=$RESEARCHACCONT srun $VIRTUAL_ENV/bin/notebook.sh
 ########################################################################
 # In YOUR computer terminal 
-sshuttle --dns -Nr mobze@beluga.computecanada.ca
+sshuttle --dns -Nr $USERNAME@beluga.computecanada.ca
 ########################################################################
